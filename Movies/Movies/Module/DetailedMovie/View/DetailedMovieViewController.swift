@@ -29,7 +29,7 @@ final class DetailedMovieViewController: UIViewController {
         setupTableView()
         setupNavigationBar()
         detailedMovieViewModel?.requestDetailedMovie()
-        reloadtableView()
+        reloadTableView()
     }
 
     // MARK: - Internal Methods
@@ -40,7 +40,7 @@ final class DetailedMovieViewController: UIViewController {
 
     // MARK: - Private Methods
 
-    private func reloadtableView() {
+    private func reloadTableView() {
         detailedMovieViewModel?.reloadTableView = { [weak tableView] in
             tableView?.reloadData()
         }
