@@ -69,6 +69,7 @@ final class MovieListViewController: UIViewController {
         tableView.register(MovieTableViewCell.self, forCellReuseIdentifier: Constants.movieTableViewCell)
         tableView.backgroundColor = .black
         tableView.dataSource = self
+        tableView.delegate = self
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -91,6 +92,16 @@ final class MovieListViewController: UIViewController {
 
     @objc private func selectedValue() {
         movieListViewModel?.selectedValue(index: movieSortSegmentController.selectedSegmentIndex)
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension MovieListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailedMovieViewController = DetailedMovieViewController()
+        detailedMovieViewController.configure(detailedMovieViewModel: DetailedMovieViewModelImpl())
+        navigationController?.pushViewController(detailedMovieViewController, animated: true)
     }
 }
 
