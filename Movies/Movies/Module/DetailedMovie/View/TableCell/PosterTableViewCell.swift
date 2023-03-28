@@ -8,7 +8,15 @@ final class PosterTableViewCell: UITableViewCell {
 
     var movie: Movie? {
         didSet {
-            photoMovieImageView.image = UIImage(systemName: Constants.photoIcon)
+            imageAPIService?.getImage(posterURL: movie?.posterURL ?? String()) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                    case let .success(poster):
+                        self.photoMovieImageView.image = poster
+                    case .failure:
+                        self.photoMovieImageView.image = UIImage(systemName: Constants.photoIcon)
+                }
+            }
         }
     }
 
@@ -16,14 +24,17 @@ final class PosterTableViewCell: UITableViewCell {
 
     private let photoMovieImageView = UIImageView()
 
+    private var imageAPIService: ImageAPIService?
+
     private enum Constants {
         static let photoIcon = "photo"
     }
 
     // MARK: - Internal Methods
 
-    func configure() {
+    func configure(imageAPIService: ImageAPIService) {
         contentView.backgroundColor = .black
+        self.imageAPIService = imageAPIService
         setupPhotoMovieImageView()
     }
 

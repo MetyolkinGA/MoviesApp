@@ -12,7 +12,7 @@ final class DescriptionTableViewCell: UITableViewCell {
             movieRatingLabel.text = String(movie?.voteAverage ?? 0)
             movieRatingLabel.textColor = movie?.ratingMovieColor
             descriptionMovieLabel.text = movie?.overview
-            releaseDateMovieLabel.text = movie?.releaseDate
+            releaseDateMovieLabel.text = convertDateFormat(inputDate: movie?.releaseDate ?? String())
         }
     }
 
@@ -22,6 +22,11 @@ final class DescriptionTableViewCell: UITableViewCell {
     private let movieRatingLabel = UILabel()
     private let releaseDateMovieLabel = UILabel()
     private let descriptionMovieLabel = UILabel()
+
+    private enum Constants {
+        static let currentDateFormat = "yyyy-MM-dd"
+        static let convertDateFormat = "dd MM yyyy"
+    }
 
     // MARK: - Internal Methods
 
@@ -34,6 +39,15 @@ final class DescriptionTableViewCell: UITableViewCell {
     }
 
     // MARK: - Private Methods
+
+    private func convertDateFormat(inputDate: String) -> String {
+        let currentDateFormatter = DateFormatter()
+        currentDateFormatter.dateFormat = Constants.currentDateFormat
+        guard let currentDate = currentDateFormatter.date(from: inputDate) else { return String() }
+        let convertDateFormatter = DateFormatter()
+        convertDateFormatter.dateFormat = Constants.convertDateFormat
+        return convertDateFormatter.string(from: currentDate)
+    }
 
     private func setupNameMovieLabel() {
         nameMovieLabel.translatesAutoresizingMaskIntoConstraints = false

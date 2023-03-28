@@ -13,6 +13,8 @@ final class DetailedMovieViewController: UIViewController {
     private enum Constants {
         static let posterTableViewCell = "PosterTableViewCell"
         static let descriptionTableViewCell = "DescriptionTableViewCell"
+        static let alertControllerTitle = "Ошибка!"
+        static let alertActionTitle = "OK"
     }
 
     private enum IndexTableViewCell: Int {
@@ -25,11 +27,10 @@ final class DetailedMovieViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-        title = detailedMovieViewModel?.getMovie()?.title
         setupTableView()
         setupNavigationBar()
-        detailedMovieViewModel?.requestDetailedMovie()
         reloadTableView()
+        presentErrorAlerController()
     }
 
     // MARK: - Internal Methods
@@ -41,8 +42,18 @@ final class DetailedMovieViewController: UIViewController {
     // MARK: - Private Methods
 
     private func reloadTableView() {
-        detailedMovieViewModel?.reloadTableView = { [weak tableView] in
+        detailedMovieViewModel?.updateDataTableView = { [weak tableView] in
             tableView?.reloadData()
+        }
+    }
+
+    private func presentErrorAlerController() {
+        detailedMovieViewModel?.presentErrorAlerController = { [weak self] error in
+            self?.showAlert(
+                title: Constants.alertControllerTitle,
+                message: error,
+                titleAction: Constants.alertActionTitle
+            )
         }
     }
 
@@ -86,7 +97,7 @@ extension DetailedMovieViewController: UITableViewDataSource {
                     withIdentifier: Constants.posterTableViewCell,
                     for: indexPath
                 ) as? PosterTableViewCell else { return UITableViewCell() }
-                cellPoster.configure()
+                cellPoster.configure(imageAPIService: ImageAPIServiceImpl())
                 cellPoster.movie = detailedMovieViewModel?.getMovie()
                 return cellPoster
             case IndexTableViewCell.descriptionTableViewCell.rawValue:

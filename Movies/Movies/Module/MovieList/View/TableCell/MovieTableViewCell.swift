@@ -8,10 +8,19 @@ final class MovieTableViewCell: UITableViewCell {
 
     var movie: Movie? {
         didSet {
+            imageAPIService?.getImage(posterURL: movie?.posterURL ?? String()) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                    case let .success(poster):
+                        self.movieImageView.image = poster
+                    case .failure:
+                        self.movieImageView.image = UIImage(systemName: Constants.photoIcon)
+                }
+            }
             movieNameLabel.text = movie?.title
             movieRatingLabel.text = String(movie?.voteAverage ?? 0)
             movieRatingLabel.textColor = movie?.ratingMovieColor
-            releaseDateMovieLabel.text = movie?.releaseDate
+            releaseDateMovieLabel.text = convertDateFormat(inputDate: movie?.releaseDate ?? String())
         }
     }
 
@@ -24,15 +33,20 @@ final class MovieTableViewCell: UITableViewCell {
     private let movieRatingLabel = UILabel()
     private let chevronRightImageView = UIImageView()
 
+    private var imageAPIService: ImageAPIService?
+
     private enum Constants {
         static let chevronRightIcon = "chevron.right"
         static let photoIcon = "photo"
+        static let currentDateFormat = "yyyy-MM-dd"
+        static let convertDateFormat = "dd MM yyyy"
     }
 
     // MARK: - Public Methods
 
-    func configure() {
+    func configure(imageAPIService: ImageAPIService) {
         contentView.backgroundColor = .black
+        self.imageAPIService = imageAPIService
         setupMovieImageView()
         setupMovieNameLabel()
         setupReleaseDateMovieLabel()
@@ -45,6 +59,15 @@ final class MovieTableViewCell: UITableViewCell {
     }
 
     // MARK: - Private Methods
+
+    private func convertDateFormat(inputDate: String) -> String {
+        let currentDateFormatter = DateFormatter()
+        currentDateFormatter.dateFormat = Constants.currentDateFormat
+        guard let currentDate = currentDateFormatter.date(from: inputDate) else { return String() }
+        let convertDateFormatter = DateFormatter()
+        convertDateFormatter.dateFormat = Constants.convertDateFormat
+        return convertDateFormatter.string(from: currentDate)
+    }
 
     private func setupMovieImageView() {
         movieImageView.translatesAutoresizingMaskIntoConstraints = false

@@ -28,6 +28,7 @@ final class MovieListViewController: UIViewController {
         setupMovieSortSegmentController()
         setupTableView()
         reloadTableView()
+        presentErrorAlerController()
     }
 
     // MARK: - Internal Methods
@@ -39,8 +40,20 @@ final class MovieListViewController: UIViewController {
     // MARK: - Private Methods
 
     private func reloadTableView() {
-        movieListViewModel?.reloadTableView = { [weak tableView] in
-            tableView?.reloadData()
+        movieListViewModel?.updateDataTableView = { [weak tableView] in
+            DispatchQueue.main.async {
+                tableView?.reloadData()
+            }
+        }
+    }
+
+    private func presentErrorAlerController() {
+        movieListViewModel?.presentErrorAlerController = { [weak self] error in
+            self?.showAlert(
+                title: Constants.alertControllerTitle,
+                message: error,
+                titleAction: Constants.alertActionTitle
+            )
         }
     }
 
@@ -79,17 +92,6 @@ final class MovieListViewController: UIViewController {
         ])
     }
 
-    private func showAlert(title: String, message: String?, titleAction: String) {
-        let alertController = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: .alert
-        )
-        let action = UIAlertAction(title: titleAction, style: .default)
-        alertController.addAction(action)
-        present(alertController, animated: true)
-    }
-
     @objc private func selectedValue() {
         movieListViewModel?.selectedValue(index: movieSortSegmentController.selectedSegmentIndex)
     }
@@ -99,8 +101,11 @@ final class MovieListViewController: UIViewController {
 
 extension MovieListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let movie = movieListViewModel?.getMovies()[indexPath.row] else { return }
         let detailedMovieViewController = DetailedMovieViewController()
-        detailedMovieViewController.configure(detailedMovieViewModel: DetailedMovieViewModelImpl())
+        let detailedMovieViewModel = DetailedMovieViewModelImpl()
+        detailedMovieViewModel.configure(movieID: String(movie.id), movieAPIService: MovieAPIServiceImpl())
+        detailedMovieViewController.configure(detailedMovieViewModel: detailedMovieViewModel)
         navigationController?.pushViewController(detailedMovieViewController, animated: true)
     }
 }
@@ -118,7 +123,7 @@ extension MovieListViewController: UITableViewDataSource {
             for: indexPath
         ) as? MovieTableViewCell else { return UITableViewCell() }
         guard let movie = movieListViewModel?.getMovies()[indexPath.row] else { return UITableViewCell() }
-        cellMovie.configure()
+        cellMovie.configure(imageAPIService: ImageAPIServiceImpl())
         cellMovie.movie = movie
         return cellMovie
     }
