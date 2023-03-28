@@ -7,19 +7,18 @@ import UIKit
 final class MovieListViewModelImpl: MovieListViewModel {
     // MARK: - Internal Properties
 
-    var reloadTableView: VoidHandler?
+    var updateDataTableView: VoidHandler?
+    var presentErrorAlerController: StringHandler?
 
     // MARK: - Private Properties
 
+    private var movieAPIService: MovieAPIService?
     private var movies: [Movie]? = []
 
     private enum Constants {
-        static let topRated =
-            "https://api.themoviedb.org/3/movie/top_rated?api_key=2f848e32459240f0dee56929f2a129eb&language=ru&page=1"
-        static let popular =
-            "https://api.themoviedb.org/3/movie/popular?api_key=2f848e32459240f0dee56929f2a129eb&language=ru&page=1"
-        static let upcoming =
-            "https://api.themoviedb.org/3/movie/upcoming?api_key=2f848e32459240f0dee56929f2a129eb&language=ru&page=1"
+        static let topRated = "top_rated"
+        static let popular = "popular"
+        static let upcoming = "upcoming"
     }
 
     private enum MovieSortSegment: Int {
@@ -30,14 +29,19 @@ final class MovieListViewModelImpl: MovieListViewModel {
 
     // MARK: - Intenal Methods
 
+    func configure(movieAPIService: MovieAPIService) {
+        self.movieAPIService = movieAPIService
+        selectedValue(index: 0)
+    }
+
     func selectedValue(index: Int) {
         switch MovieSortSegment(rawValue: index) {
             case .topRate:
-                getMovie(url: Constants.topRated)
+                loadMoviesData(path: Constants.topRated)
             case .topPopular:
-                getMovie(url: Constants.popular)
+                loadMoviesData(path: Constants.popular)
             case .upComing:
-                getMovie(url: Constants.upcoming)
+                loadMoviesData(path: Constants.upcoming)
             default:
                 return
         }
@@ -49,20 +53,16 @@ final class MovieListViewModelImpl: MovieListViewModel {
 
     // MARK: - Private Methods
 
-    private func getMovie(url: String) {
-        movies = nil
-        guard let url = URL(string: url) else { return }
-        URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
-            guard let self = self, let data = data else { return }
-            do {
-                let movieList = try JSONDecoder().decode(MovieList.self, from: data)
-                self.movies = movieList.results
-                DispatchQueue.main.async {
-                    self.reloadTableView?()
-                }
-            } catch {
-                print(error.localizedDescription)
+    private func loadMoviesData(path: String) {
+        movieAPIService?.getMovieList(path: path) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+                case let .success(movies):
+                    self.movies = movies
+                    self.updateDataTableView?()
+                case let .failure(error):
+                    self.presentErrorAlerController?(error.localizedDescription)
             }
-        }.resume()
+        }
     }
 }

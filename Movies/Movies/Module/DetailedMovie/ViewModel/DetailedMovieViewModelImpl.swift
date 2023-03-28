@@ -6,36 +6,41 @@ import UIKit
 final class DetailedMovieViewModelImpl: DetailedMovieViewModel {
     // MARK: - Intenal Properties
 
-    var reloadTableView: VoidHandler?
+    var updateDataTableView: VoidHandler?
+    var presentErrorAlerController: StringHandler?
 
     // MARK: - Private Properties
 
+    private var movieID: String?
     private var movie: Movie?
-
-    private enum Constants {
-        static let url =
-            "https://api.themoviedb.org/3/movie/238?api_key=2f848e32459240f0dee56929f2a129eb&language=ru"
-    }
+    private var movieAPIService: MovieAPIService?
 
     // MARK: - Internal Methods
+
+    func configure(movieID: String, movieAPIService: MovieAPIService) {
+        self.movieAPIService = movieAPIService
+        self.movieID = movieID
+        loadDetailedMovieData()
+    }
 
     func getMovie() -> Movie? {
         movie
     }
 
-    func requestDetailedMovie() {
-        guard let url = URL(string: Constants.url) else { return }
-        URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
-            guard let self = self, let data = data else { return }
-            do {
-                let movie = try JSONDecoder().decode(Movie.self, from: data)
-                self.movie = movie
-                DispatchQueue.main.async {
-                    self.reloadTableView?()
-                }
-            } catch {
-                print(error.localizedDescription)
+    // MARK: - Private Methods
+
+    private func loadDetailedMovieData() {
+        movieAPIService?.getDetailedMovie(path: movieID ?? String()) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+                case let .success(movie):
+                    self.movie = movie
+                    DispatchQueue.main.async {
+                        self.updateDataTableView?()
+                    }
+                case let .failure(error):
+                    self.presentErrorAlerController?(error.localizedDescription)
             }
-        }.resume()
+        }
     }
 }
