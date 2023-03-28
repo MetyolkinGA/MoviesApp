@@ -1,7 +1,6 @@
 // MovieListViewModelImpl.swift
 // Copyright © Movie. All rights reserved.
 
-import CoreData
 import UIKit
 
 final class MovieListViewModelImpl: MovieListViewModel {

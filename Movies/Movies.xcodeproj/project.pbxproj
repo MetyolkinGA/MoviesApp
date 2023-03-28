@@ -22,6 +22,8 @@
 		A363C4AE29D30DE2004276E5 /* ImageAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A363C4AD29D30DE2004276E5 /* ImageAPIService.swift */; };
 		A363C4B029D30DED004276E5 /* ImageAPIServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A363C4AF29D30DED004276E5 /* ImageAPIServiceImpl.swift */; };
 		A363C4B329D38164004276E5 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A363C4B229D38164004276E5 /* UIViewController+Extension.swift */; };
+		A363C4B629D385B8004276E5 /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A363C4B529D385B8004276E5 /* Assembly.swift */; };
+		A363C4B829D385C5004276E5 /* AssemblyImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A363C4B729D385C5004276E5 /* AssemblyImpl.swift */; };
 		A3CCD4DA29D2041F002A9AF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CCD4D929D2041F002A9AF2 /* AppDelegate.swift */; };
 		A3CCD4DC29D2041F002A9AF2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CCD4DB29D2041F002A9AF2 /* SceneDelegate.swift */; };
 		A3CCD4DE29D2041F002A9AF2 /* MovieListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3CCD4DD29D2041F002A9AF2 /* MovieListViewController.swift */; };
@@ -50,6 +52,8 @@
 		A363C4AD29D30DE2004276E5 /* ImageAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAPIService.swift; sourceTree = "<group>"; };
 		A363C4AF29D30DED004276E5 /* ImageAPIServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAPIServiceImpl.swift; sourceTree = "<group>"; };
 		A363C4B229D38164004276E5 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		A363C4B529D385B8004276E5 /* Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
+		A363C4B729D385C5004276E5 /* AssemblyImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyImpl.swift; sourceTree = "<group>"; };
 		A3CCD4D629D2041F002A9AF2 /* Movies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Movies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3CCD4D929D2041F002A9AF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A3CCD4DB29D2041F002A9AF2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -152,6 +156,7 @@
 		A363C4A529D30CC8004276E5 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				A363C4B429D385A6004276E5 /* Assemby */,
 				A363C4A629D30D80004276E5 /* NetworkService */,
 			);
 			path = Service;
@@ -190,6 +195,15 @@
 				A363C4B229D38164004276E5 /* UIViewController+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		A363C4B429D385A6004276E5 /* Assemby */ = {
+			isa = PBXGroup;
+			children = (
+				A363C4B529D385B8004276E5 /* Assembly.swift */,
+				A363C4B729D385C5004276E5 /* AssemblyImpl.swift */,
+			);
+			path = Assemby;
 			sourceTree = "<group>";
 		};
 		A3CCD4CD29D2041F002A9AF2 = {
@@ -442,6 +456,7 @@
 				A363C49629D2EE1F004276E5 /* DescriptionTableViewCell.swift in Sources */,
 				A345127429D20DCC00608B67 /* MovieTableViewCell.swift in Sources */,
 				A363C4AA29D30DC3004276E5 /* MovieAPIService.swift in Sources */,
+				A363C4B629D385B8004276E5 /* Assembly.swift in Sources */,
 				A3CCD4DA29D2041F002A9AF2 /* AppDelegate.swift in Sources */,
 				A363C49129D2ED32004276E5 /* DetailedMovieViewModelImpl.swift in Sources */,
 				A3CCD4DC29D2041F002A9AF2 /* SceneDelegate.swift in Sources */,
@@ -451,6 +466,7 @@
 				A363C48729D2DA7C004276E5 /* Typealias.swift in Sources */,
 				A363C4AE29D30DE2004276E5 /* ImageAPIService.swift in Sources */,
 				A345126C29D20A9B00608B67 /* MovieListViewModelImpl.swift in Sources */,
+				A363C4B829D385C5004276E5 /* AssemblyImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
