@@ -49,7 +49,7 @@ final class MovieListViewModelImpl: MovieListViewModel {
 
     // MARK: - Private Methods
 
-    func getMovie(url: String) {
+    private func getMovie(url: String) {
         movies = nil
         guard let url = URL(string: url) else { return }
         URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
