@@ -9,7 +9,9 @@ final class DescriptionTableViewCell: UITableViewCell {
     var movie: Movie? {
         didSet {
             nameMovieLabel.text = movie?.title
-            movieRatingLabel.text = String(movie?.voteAverage ?? 0)
+            let xDouble = movie?.voteAverage ?? Double()
+            let yDouble = Double(round(10 * xDouble) / 10)
+            movieRatingLabel.text = String(yDouble) + " ⭐️"
             movieRatingLabel.textColor = movie?.ratingMovieColor
             descriptionMovieLabel.text = movie?.overview
             releaseDateMovieLabel.text = convertDateFormat(inputDate: movie?.releaseDate ?? String())
@@ -25,7 +27,7 @@ final class DescriptionTableViewCell: UITableViewCell {
 
     private enum Constants {
         static let currentDateFormat = "yyyy-MM-dd"
-        static let convertDateFormat = "dd MM yyyy"
+        static let convertDateFormat = "dd.MM.yyyy"
     }
 
     // MARK: - Internal Methods
@@ -51,7 +53,7 @@ final class DescriptionTableViewCell: UITableViewCell {
 
     private func setupNameMovieLabel() {
         nameMovieLabel.translatesAutoresizingMaskIntoConstraints = false
-        nameMovieLabel.font = .systemFont(ofSize: 19, weight: .bold)
+        nameMovieLabel.font = .systemFont(ofSize: 21, weight: .bold)
         nameMovieLabel.textColor = .white
         nameMovieLabel.numberOfLines = 0
         nameMovieLabel.textAlignment = .center
@@ -64,7 +66,7 @@ final class DescriptionTableViewCell: UITableViewCell {
 
     private func setupMovieRatingLabel() {
         movieRatingLabel.translatesAutoresizingMaskIntoConstraints = false
-        movieRatingLabel.font = .systemFont(ofSize: 18, weight: .bold)
+        movieRatingLabel.font = .systemFont(ofSize: 19, weight: .bold)
         contentView.addSubview(movieRatingLabel)
         NSLayoutConstraint.activate([
             movieRatingLabel.topAnchor.constraint(equalTo: nameMovieLabel.bottomAnchor, constant: 10),
@@ -85,7 +87,7 @@ final class DescriptionTableViewCell: UITableViewCell {
 
     private func setupDescriptionMovieLabel() {
         descriptionMovieLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionMovieLabel.font = .systemFont(ofSize: 15, weight: .bold)
+        descriptionMovieLabel.font = .systemFont(ofSize: 16, weight: .bold)
         descriptionMovieLabel.textColor = .white
         descriptionMovieLabel.textAlignment = .center
         descriptionMovieLabel.numberOfLines = 0
@@ -96,5 +98,11 @@ final class DescriptionTableViewCell: UITableViewCell {
             descriptionMovieLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
             descriptionMovieLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
         ])
+    }
+}
+
+extension Double {
+    var clean: String {
+        truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
     }
 }

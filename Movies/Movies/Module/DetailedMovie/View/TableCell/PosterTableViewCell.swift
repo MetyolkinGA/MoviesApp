@@ -48,9 +48,9 @@ final class PosterTableViewCell: UITableViewCell {
         contentView.addSubview(photoMovieImageView)
         NSLayoutConstraint.activate([
             photoMovieImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            photoMovieImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
-            photoMovieImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -50),
-            photoMovieImageView.heightAnchor.constraint(equalToConstant: 400),
+            photoMovieImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 60),
+            photoMovieImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -60),
+            photoMovieImageView.heightAnchor.constraint(equalToConstant: 450),
             contentView.heightAnchor.constraint(equalTo: photoMovieImageView.heightAnchor)
         ])
     }

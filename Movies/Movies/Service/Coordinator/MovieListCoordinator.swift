@@ -22,19 +22,9 @@ final class MovieCoordinator: BaseCoordinator {
 
     // MARK: - Internal Methods
 
-    func openMovieDetailedModule() {
-        guard
-            let movieListViewConrtoller =
-            applicationAssembly.createMovieListViewConrtoller() as? MovieListViewController
-        else { return }
-        movieListViewConrtoller.openDetailedMovieModule = { [weak self] id in
-            let detailedMovieViewController =
-                self?.applicationAssembly.createDetailedMovieViewController(movieID: id)
-            self?.navigationController.pushViewController(
-                detailedMovieViewController ?? UIViewController(),
-                animated: true
-            )
-        }
+    func openMovieDetailedModule(movieID: String) {
+        let detailedMovieViewController = applicationAssembly.createDetailedMovieViewController(movieID: movieID)
+        navigationController.pushViewController(detailedMovieViewController, animated: true)
     }
 
     func openMovieListModule() {
@@ -43,12 +33,7 @@ final class MovieCoordinator: BaseCoordinator {
             applicationAssembly.createMovieListViewConrtoller() as? MovieListViewController
         else { return }
         movieListViewConrtoller.openDetailedMovieModule = { [weak self] id in
-            let detailedMovieViewController =
-                self?.applicationAssembly.createDetailedMovieViewController(movieID: id)
-            self?.navigationController.pushViewController(
-                detailedMovieViewController ?? UIViewController(),
-                animated: true
-            )
+            self?.openMovieDetailedModule(movieID: id)
         }
         navigationController.pushViewController(movieListViewConrtoller, animated: true)
     }

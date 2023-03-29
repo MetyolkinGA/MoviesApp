@@ -18,7 +18,7 @@ final class MovieTableViewCell: UITableViewCell {
                 }
             }
             movieNameLabel.text = movie?.title
-            movieRatingLabel.text = String(movie?.voteAverage ?? 0)
+            movieRatingLabel.text = movie?.voteAverage == 0 ? "Скоро выйдет" : String(movie?.voteAverage ?? 0) + " ⭐️"
             movieRatingLabel.textColor = movie?.ratingMovieColor
             releaseDateMovieLabel.text = convertDateFormat(inputDate: movie?.releaseDate ?? String())
         }
@@ -39,7 +39,7 @@ final class MovieTableViewCell: UITableViewCell {
         static let chevronRightIcon = "chevron.right"
         static let photoIcon = "photo"
         static let currentDateFormat = "yyyy-MM-dd"
-        static let convertDateFormat = "dd MM yyyy"
+        static let convertDateFormat = "dd.MM.yyyy"
     }
 
     // MARK: - Public Methods
@@ -86,7 +86,7 @@ final class MovieTableViewCell: UITableViewCell {
 
     private func setupMovieNameLabel() {
         movieNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        movieNameLabel.font = .systemFont(ofSize: 16, weight: .bold)
+        movieNameLabel.font = .systemFont(ofSize: 17, weight: .bold)
         movieNameLabel.textColor = .white
         movieNameLabel.numberOfLines = 0
         contentView.addSubview(movieNameLabel)
@@ -112,7 +112,7 @@ final class MovieTableViewCell: UITableViewCell {
 
     private func setupMovieRatingLabel() {
         movieRatingLabel.translatesAutoresizingMaskIntoConstraints = false
-        movieRatingLabel.font = .systemFont(ofSize: 16, weight: .bold)
+        movieRatingLabel.font = .systemFont(ofSize: 17, weight: .bold)
         contentView.addSubview(movieRatingLabel)
         NSLayoutConstraint.activate([
             movieRatingLabel.leadingAnchor.constraint(equalTo: movieImageView.trailingAnchor, constant: 10),
