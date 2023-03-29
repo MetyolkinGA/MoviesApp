@@ -3,7 +3,7 @@
 
 import UIKit
 
-final class AssemblyImpl: Assembly {
+final class ApplicationAssemblyImpl: ApplicationAssembly {
     // MARK: - Internal Methods
 
     func createMovieListViewConrtoller() -> UIViewController {

@@ -3,7 +3,7 @@
 
 import UIKit
 
-protocol Assembly {
+protocol ApplicationAssembly {
     func createMovieListViewConrtoller() -> UIViewController
     func createDetailedMovieViewController(movieID: String) -> UIViewController
 }

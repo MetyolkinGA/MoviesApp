@@ -72,6 +72,7 @@ final class DetailedMovieViewController: UIViewController {
         tableView.register(PosterTableViewCell.self, forCellReuseIdentifier: Constants.posterTableViewCell)
         tableView.register(DescriptionTableViewCell.self, forCellReuseIdentifier: Constants.descriptionTableViewCell)
         tableView.backgroundColor = .black
+        tableView.separatorStyle = .none
         tableView.dataSource = self
         view.addSubview(tableView)
         NSLayoutConstraint.activate([

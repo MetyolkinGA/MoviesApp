@@ -4,6 +4,10 @@
 import UIKit
 
 final class MovieListViewController: UIViewController {
+    // MARK: - Internal Properties
+
+    var openDetailedMovieModule: StringHandler?
+
     // MARK: - Private Properties
 
     private let tableView = UITableView()
@@ -49,11 +53,13 @@ final class MovieListViewController: UIViewController {
 
     private func presentErrorAlerController() {
         movieListViewModel?.presentErrorAlerController = { [weak self] error in
-            self?.showAlert(
-                title: Constants.alertControllerTitle,
-                message: error,
-                titleAction: Constants.alertActionTitle
-            )
+            DispatchQueue.main.async {
+                self?.showAlert(
+                    title: Constants.alertControllerTitle,
+                    message: error,
+                    titleAction: Constants.alertActionTitle
+                )
+            }
         }
     }
 
@@ -102,11 +108,7 @@ final class MovieListViewController: UIViewController {
 extension MovieListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let movie = movieListViewModel?.getMovies()[indexPath.row] else { return }
-        let detailedMovieViewController = DetailedMovieViewController()
-        let detailedMovieViewModel = DetailedMovieViewModelImpl()
-        detailedMovieViewModel.configure(movieID: String(movie.id), movieAPIService: MovieAPIServiceImpl())
-        detailedMovieViewController.configure(detailedMovieViewModel: detailedMovieViewModel)
-        navigationController?.pushViewController(detailedMovieViewController, animated: true)
+        openDetailedMovieModule?(String(movie.id))
     }
 }
 
