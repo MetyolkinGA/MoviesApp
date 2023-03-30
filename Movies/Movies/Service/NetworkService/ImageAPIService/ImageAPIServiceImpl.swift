@@ -1,8 +1,8 @@
 // ImageAPIServiceImpl.swift
 // Copyright © Movie. All rights reserved.
 
-import Foundation
 import UIKit
+
 final class ImageAPIServiceImpl: ImageAPIService {
     // MARK: - Internal Methods
 

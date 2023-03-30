@@ -8,19 +8,23 @@ final class MovieTableViewCell: UITableViewCell {
 
     var movie: Movie? {
         didSet {
-            imageAPIService?.getImage(posterURL: movie?.posterURL ?? String()) { [weak self] result in
+            guard let movie = movie, let releaseDate = movie.releaseDate else { return }
+            imageAPIService?.getImage(posterURL: movie.posterURL) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                     case let .success(poster):
                         self.movieImageView.image = poster
                     case .failure:
-                        self.movieImageView.image = UIImage(systemName: Constants.photoIcon)
+                        DispatchQueue.main.async {
+                            self.movieImageView.image = UIImage(systemName: Constants.photoIcon)
+                        }
                 }
             }
-            movieNameLabel.text = movie?.title
-            movieRatingLabel.text = String(movie?.voteAverage ?? 0)
-            movieRatingLabel.textColor = movie?.ratingMovieColor
-            releaseDateMovieLabel.text = convertDateFormat(inputDate: movie?.releaseDate ?? String())
+            movieNameLabel.text = movie.title
+            movieRatingLabel.text = movie.voteAverage == 0 ? "" : String(movie.voteAverage) + Constants.starEmoji
+            movieRatingLabel.textColor = movie.ratingMovieColor
+            releaseDateMovieLabel.text =
+                releaseDate == nil ? Constants.comingOutSoon : convertDateFormat(inputDate: releaseDate)
         }
     }
 
@@ -36,10 +40,12 @@ final class MovieTableViewCell: UITableViewCell {
     private var imageAPIService: ImageAPIService?
 
     private enum Constants {
+        static let comingOutSoon = "Скоро выйдет"
+        static let starEmoji = " ⭐️"
         static let chevronRightIcon = "chevron.right"
         static let photoIcon = "photo"
         static let currentDateFormat = "yyyy-MM-dd"
-        static let convertDateFormat = "dd MM yyyy"
+        static let convertDateFormat = "dd.MM.yyyy"
     }
 
     // MARK: - Public Methods
@@ -86,7 +92,7 @@ final class MovieTableViewCell: UITableViewCell {
 
     private func setupMovieNameLabel() {
         movieNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        movieNameLabel.font = .systemFont(ofSize: 16, weight: .bold)
+        movieNameLabel.font = .systemFont(ofSize: 17, weight: .bold)
         movieNameLabel.textColor = .white
         movieNameLabel.numberOfLines = 0
         contentView.addSubview(movieNameLabel)
@@ -112,7 +118,7 @@ final class MovieTableViewCell: UITableViewCell {
 
     private func setupMovieRatingLabel() {
         movieRatingLabel.translatesAutoresizingMaskIntoConstraints = false
-        movieRatingLabel.font = .systemFont(ofSize: 16, weight: .bold)
+        movieRatingLabel.font = .systemFont(ofSize: 17, weight: .bold)
         contentView.addSubview(movieRatingLabel)
         NSLayoutConstraint.activate([
             movieRatingLabel.leadingAnchor.constraint(equalTo: movieImageView.trailingAnchor, constant: 10),

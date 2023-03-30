@@ -35,6 +35,7 @@ final class DetailedMovieViewModelImpl: DetailedMovieViewModel {
             switch result {
                 case let .success(movie):
                     self.movie = movie
+                    print(movie)
                     DispatchQueue.main.async {
                         self.updateDataTableView?()
                     }

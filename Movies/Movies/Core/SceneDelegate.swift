@@ -5,6 +5,7 @@ import UIKit
 /// SceneDelegate
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+    var applicatonCoordinator: ApplicatonCoordinator?
 
     func scene(
         _ scene: UIScene,
@@ -13,11 +14,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        let movieListViewController = MovieListViewController()
-        let movieListViewModel = MovieListViewModelImpl()
-        movieListViewModel.configure(movieAPIService: MovieAPIServiceImpl())
-        movieListViewController.configure(movieListViewModel: movieListViewModel)
-        window.rootViewController = UINavigationController(rootViewController: movieListViewController)
+        window.rootViewController = UINavigationController()
+        applicatonCoordinator = ApplicatonCoordinator(
+            navigationController: window.rootViewController as? UINavigationController ?? UINavigationController(),
+            applicationAssembly: ApplicationAssemblyImpl()
+        )
+        applicatonCoordinator?.start()
         window.makeKeyAndVisible()
         self.window = window
     }
