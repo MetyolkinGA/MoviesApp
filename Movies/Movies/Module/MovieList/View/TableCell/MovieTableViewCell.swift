@@ -8,7 +8,7 @@ final class MovieTableViewCell: UITableViewCell {
 
     var movie: Movie? {
         didSet {
-            guard let movie = movie, let releaseDate = movie.releaseDate else { return }
+            guard let movie = movie else { return }
             imageAPIService?.getImage(posterURL: movie.posterURL) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
@@ -24,7 +24,9 @@ final class MovieTableViewCell: UITableViewCell {
             movieRatingLabel.text = movie.voteAverage == 0 ? "" : String(movie.voteAverage) + Constants.starEmoji
             movieRatingLabel.textColor = movie.ratingMovieColor
             releaseDateMovieLabel.text =
-                releaseDate == nil ? Constants.comingOutSoon : convertDateFormat(inputDate: releaseDate)
+                movie.releaseDate == nil ? Constants.comingOutSoon : convertDateFormat(
+                    inputDate: movie.releaseDate ?? String()
+                )
         }
     }
 

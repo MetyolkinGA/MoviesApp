@@ -11,11 +11,12 @@ final class DescriptionTableViewCell: UITableViewCell {
             guard let movie = movie, let releaseDate = movie.releaseDate else { return }
             nameMovieLabel.text = movie.title
             movieRatingLabel.text =
-            movie.voteAverage == 0 ? "" : String(convertDouble(inputDouble: movie.voteAverage)) + Constants.starEmoji
+                movie.voteAverage == 0 ?
+                "" : String(convertDouble(inputDouble: movie.voteAverage)) + Constants.starEmoji
             movieRatingLabel.textColor = movie.ratingMovieColor
             descriptionMovieLabel.text = movie.overview
             releaseDateMovieLabel.text =
-            releaseDate.isEmpty ? Constants.comingOutSoon : convertDateFormat(inputDate: releaseDate)
+                releaseDate.isEmpty ? Constants.comingOutSoon : convertDateFormat(inputDate: releaseDate)
         }
     }
 
@@ -46,9 +47,8 @@ final class DescriptionTableViewCell: UITableViewCell {
     // MARK: - Private Methods
 
     private func convertDouble(inputDouble: Double) -> Double {
-        let xDouble = inputDouble
-        let yDouble = Double(round(10 * xDouble) / 10)
-        return yDouble
+        let newDouble = Double(round(10 * inputDouble) / 10)
+        return newDouble
     }
 
     private func convertDateFormat(inputDate: String) -> String {
