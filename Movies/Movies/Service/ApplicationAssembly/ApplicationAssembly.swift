@@ -5,5 +5,5 @@ import UIKit
 
 protocol ApplicationAssembly {
     func createMovieListViewConrtoller() -> UIViewController
-    func createDetailedMovieViewController(movieID: String) -> UIViewController
+    func createDetailsMovieViewController(movieID: String) -> UIViewController
 }

@@ -14,11 +14,11 @@ final class ApplicationAssemblyImpl: ApplicationAssembly {
         return movieListViewController
     }
 
-    func createDetailedMovieViewController(movieID: String) -> UIViewController {
-        let detailedMovieViewController = DetailedMovieViewController()
-        let detailedMovieViewModel = DetailedMovieViewModelImpl()
-        detailedMovieViewModel.configure(movieID: movieID, movieAPIService: MovieAPIServiceImpl())
-        detailedMovieViewController.configure(detailedMovieViewModel: detailedMovieViewModel)
-        return detailedMovieViewController
+    func createDetailsMovieViewController(movieID: String) -> UIViewController {
+        let detailsMovieViewController = DetailsMovieViewController()
+        let detailsMovieViewModel = DetailsMovieViewModelImpl()
+        detailsMovieViewModel.configure(movieID: movieID, movieAPIService: MovieAPIServiceImpl())
+        detailsMovieViewController.configure(detailsMovieViewModel: detailsMovieViewModel)
+        return detailsMovieViewController
     }
 }

@@ -124,7 +124,12 @@ extension MovieListViewController: UITableViewDataSource {
             for: indexPath
         ) as? MovieTableViewCell else { return UITableViewCell() }
         guard let movie = movieListViewModel?.getMovies()[indexPath.row] else { return UITableViewCell() }
-        cellMovie.configure(imageAPIService: ImageAPIServiceImpl())
+        let proxyService = ProxyServiceImpl()
+        proxyService.configure(
+            imageAPIService: ImageAPIServiceImpl(),
+            imageCacheService: ImageCacheServiceImpl()
+        )
+        cellMovie.configure(proxyService: proxyService)
         cellMovie.movie = movie
         return cellMovie
     }

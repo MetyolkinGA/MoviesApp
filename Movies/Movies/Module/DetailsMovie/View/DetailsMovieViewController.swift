@@ -1,14 +1,14 @@
-// DetailedMovieViewController.swift
+// DetailsMovieViewController.swift
 // Copyright © Movie. All rights reserved.
 
 import UIKit
 
-final class DetailedMovieViewController: UIViewController {
+final class DetailsMovieViewController: UIViewController {
     // MARK: - Private Properties
 
     private let tableView = UITableView()
 
-    private var detailedMovieViewModel: DetailedMovieViewModel?
+    private var detailsMovieViewModel: DetailsMovieViewModel?
 
     private enum Constants {
         static let posterTableViewCell = "PosterTableViewCell"
@@ -35,21 +35,24 @@ final class DetailedMovieViewController: UIViewController {
 
     // MARK: - Internal Methods
 
-    func configure(detailedMovieViewModel: DetailedMovieViewModel) {
-        self.detailedMovieViewModel = detailedMovieViewModel
+    func configure(detailsMovieViewModel: DetailsMovieViewModel) {
+        self.detailsMovieViewModel = detailsMovieViewModel
     }
 
     // MARK: - Private Methods
 
     private func reloadTableView() {
-        detailedMovieViewModel?.updateDataTableView = { [weak self] in
-            self?.title = self?.detailedMovieViewModel?.getMovie()?.title
-            self?.tableView.reloadData()
+        detailsMovieViewModel?.updateDataTableView = { [weak self] in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                self.title = self.detailsMovieViewModel?.getMovie()?.title
+                self.tableView.reloadData()
+            }
         }
     }
 
     private func presentErrorAlerController() {
-        detailedMovieViewModel?.presentErrorAlerController = { [weak self] error in
+        detailsMovieViewModel?.presentErrorAlerController = { [weak self] error in
             DispatchQueue.main.async {
                 self?.showAlert(
                     title: Constants.alertControllerTitle,
@@ -89,7 +92,7 @@ final class DetailedMovieViewController: UIViewController {
 
 // MARK: - UITableViewDataSource
 
-extension DetailedMovieViewController: UITableViewDataSource {
+extension DetailsMovieViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         2
     }
@@ -101,8 +104,13 @@ extension DetailedMovieViewController: UITableViewDataSource {
                     withIdentifier: Constants.posterTableViewCell,
                     for: indexPath
                 ) as? PosterTableViewCell else { return UITableViewCell() }
-                cellPoster.configure(imageAPIService: ImageAPIServiceImpl())
-                cellPoster.movie = detailedMovieViewModel?.getMovie()
+                let proxyService = ProxyServiceImpl()
+                proxyService.configure(
+                    imageAPIService: ImageAPIServiceImpl(),
+                    imageCacheService: ImageCacheServiceImpl()
+                )
+                cellPoster.configure(proxyService: proxyService)
+                cellPoster.movie = detailsMovieViewModel?.getMovie()
                 return cellPoster
             case IndexTableViewCell.descriptionTableViewCell.rawValue:
                 guard let cellDescription = tableView.dequeueReusableCell(
@@ -110,7 +118,7 @@ extension DetailedMovieViewController: UITableViewDataSource {
                     for: indexPath
                 ) as? DescriptionTableViewCell else { return UITableViewCell() }
                 cellDescription.configure()
-                cellDescription.movie = detailedMovieViewModel?.getMovie()
+                cellDescription.movie = detailsMovieViewModel?.getMovie()
                 return cellDescription
             default:
                 return UITableViewCell()

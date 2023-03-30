@@ -1,9 +1,9 @@
-// DetailedMovieViewModelImpl.swift
+// DetailsMovieViewModelImpl.swift
 // Copyright © Movie. All rights reserved.
 
 import UIKit
 
-final class DetailedMovieViewModelImpl: DetailedMovieViewModel {
+final class DetailsMovieViewModelImpl: DetailsMovieViewModel {
     // MARK: - Intenal Properties
 
     var updateDataTableView: VoidHandler?
@@ -35,7 +35,6 @@ final class DetailedMovieViewModelImpl: DetailedMovieViewModel {
             switch result {
                 case let .success(movie):
                     self.movie = movie
-                    print(movie)
                     DispatchQueue.main.async {
                         self.updateDataTableView?()
                     }

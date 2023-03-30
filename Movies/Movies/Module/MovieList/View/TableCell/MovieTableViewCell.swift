@@ -9,15 +9,15 @@ final class MovieTableViewCell: UITableViewCell {
     var movie: Movie? {
         didSet {
             guard let movie = movie else { return }
-            imageAPIService?.getImage(posterURL: movie.posterURL) { [weak self] result in
+            proxyService?.getImage(url: movie.posterURL) { [weak self] result in
                 guard let self = self else { return }
-                switch result {
-                    case let .success(poster):
-                        self.movieImageView.image = poster
-                    case .failure:
-                        DispatchQueue.main.async {
+                DispatchQueue.main.async {
+                    switch result {
+                        case let .success(image):
+                            self.movieImageView.image = image
+                        case .failure:
                             self.movieImageView.image = UIImage(systemName: Constants.photoIcon)
-                        }
+                    }
                 }
             }
             movieNameLabel.text = movie.title
@@ -39,7 +39,7 @@ final class MovieTableViewCell: UITableViewCell {
     private let movieRatingLabel = UILabel()
     private let chevronRightImageView = UIImageView()
 
-    private var imageAPIService: ImageAPIService?
+    private var proxyService: ProxyService?
 
     private enum Constants {
         static let comingOutSoon = "Скоро выйдет"
@@ -52,9 +52,9 @@ final class MovieTableViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configure(imageAPIService: ImageAPIService) {
+    func configure(proxyService: ProxyService) {
         contentView.backgroundColor = .black
-        self.imageAPIService = imageAPIService
+        self.proxyService = proxyService
         setupMovieImageView()
         setupMovieNameLabel()
         setupReleaseDateMovieLabel()
