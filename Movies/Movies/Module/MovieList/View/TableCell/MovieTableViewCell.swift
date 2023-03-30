@@ -8,19 +8,23 @@ final class MovieTableViewCell: UITableViewCell {
 
     var movie: Movie? {
         didSet {
-            imageAPIService?.getImage(posterURL: movie?.posterURL ?? String()) { [weak self] result in
+            guard let movie = movie, let releaseDate = movie.releaseDate else { return }
+            imageAPIService?.getImage(posterURL: movie.posterURL) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                     case let .success(poster):
                         self.movieImageView.image = poster
                     case .failure:
-                        self.movieImageView.image = UIImage(systemName: Constants.photoIcon)
+                        DispatchQueue.main.async {
+                            self.movieImageView.image = UIImage(systemName: Constants.photoIcon)
+                        }
                 }
             }
-            movieNameLabel.text = movie?.title
-            movieRatingLabel.text = movie?.voteAverage == 0 ? "Скоро выйдет" : String(movie?.voteAverage ?? 0) + " ⭐️"
-            movieRatingLabel.textColor = movie?.ratingMovieColor
-            releaseDateMovieLabel.text = convertDateFormat(inputDate: movie?.releaseDate ?? String())
+            movieNameLabel.text = movie.title
+            movieRatingLabel.text = movie.voteAverage == 0 ? "" : String(movie.voteAverage) + Constants.starEmoji
+            movieRatingLabel.textColor = movie.ratingMovieColor
+            releaseDateMovieLabel.text =
+                releaseDate == nil ? Constants.comingOutSoon : convertDateFormat(inputDate: releaseDate)
         }
     }
 
@@ -36,6 +40,8 @@ final class MovieTableViewCell: UITableViewCell {
     private var imageAPIService: ImageAPIService?
 
     private enum Constants {
+        static let comingOutSoon = "Скоро выйдет"
+        static let starEmoji = " ⭐️"
         static let chevronRightIcon = "chevron.right"
         static let photoIcon = "photo"
         static let currentDateFormat = "yyyy-MM-dd"

@@ -58,6 +58,7 @@ final class MovieListViewModelImpl: MovieListViewModel {
             switch result {
                 case let .success(movies):
                     self.movies = movies
+                    print(movies)
                     self.updateDataTableView?()
                 case let .failure(error):
                     self.presentErrorAlerController?(error.localizedDescription)

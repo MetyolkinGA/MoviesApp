@@ -1,4 +1,4 @@
-// AssemblyImpl.swift
+// ApplicationAssemblyImpl.swift
 // Copyright © Movie. All rights reserved.
 
 import UIKit

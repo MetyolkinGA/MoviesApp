@@ -1,4 +1,4 @@
-// MovieListCoordinator.swift
+// MovieCoordinator.swift
 // Copyright © Movie. All rights reserved.
 
 import UIKit

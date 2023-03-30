@@ -42,18 +42,21 @@ final class DetailedMovieViewController: UIViewController {
     // MARK: - Private Methods
 
     private func reloadTableView() {
-        detailedMovieViewModel?.updateDataTableView = { [weak tableView] in
-            tableView?.reloadData()
+        detailedMovieViewModel?.updateDataTableView = { [weak self] in
+            self?.title = self?.detailedMovieViewModel?.getMovie()?.title
+            self?.tableView.reloadData()
         }
     }
 
     private func presentErrorAlerController() {
         detailedMovieViewModel?.presentErrorAlerController = { [weak self] error in
-            self?.showAlert(
-                title: Constants.alertControllerTitle,
-                message: error,
-                titleAction: Constants.alertActionTitle
-            )
+            DispatchQueue.main.async {
+                self?.showAlert(
+                    title: Constants.alertControllerTitle,
+                    message: error,
+                    titleAction: Constants.alertActionTitle
+                )
+            }
         }
     }
 

@@ -8,13 +8,14 @@ final class DescriptionTableViewCell: UITableViewCell {
 
     var movie: Movie? {
         didSet {
-            nameMovieLabel.text = movie?.title
-            let xDouble = movie?.voteAverage ?? Double()
-            let yDouble = Double(round(10 * xDouble) / 10)
-            movieRatingLabel.text = String(yDouble) + " ⭐️"
-            movieRatingLabel.textColor = movie?.ratingMovieColor
-            descriptionMovieLabel.text = movie?.overview
-            releaseDateMovieLabel.text = convertDateFormat(inputDate: movie?.releaseDate ?? String())
+            guard let movie = movie, let releaseDate = movie.releaseDate else { return }
+            nameMovieLabel.text = movie.title
+            movieRatingLabel.text =
+            movie.voteAverage == 0 ? "" : String(convertDouble(inputDouble: movie.voteAverage)) + Constants.starEmoji
+            movieRatingLabel.textColor = movie.ratingMovieColor
+            descriptionMovieLabel.text = movie.overview
+            releaseDateMovieLabel.text =
+            releaseDate.isEmpty ? Constants.comingOutSoon : convertDateFormat(inputDate: releaseDate)
         }
     }
 
@@ -26,6 +27,8 @@ final class DescriptionTableViewCell: UITableViewCell {
     private let descriptionMovieLabel = UILabel()
 
     private enum Constants {
+        static let comingOutSoon = "Скоро выйдет"
+        static let starEmoji = " ⭐️"
         static let currentDateFormat = "yyyy-MM-dd"
         static let convertDateFormat = "dd.MM.yyyy"
     }
@@ -41,6 +44,12 @@ final class DescriptionTableViewCell: UITableViewCell {
     }
 
     // MARK: - Private Methods
+
+    private func convertDouble(inputDouble: Double) -> Double {
+        let xDouble = inputDouble
+        let yDouble = Double(round(10 * xDouble) / 10)
+        return yDouble
+    }
 
     private func convertDateFormat(inputDate: String) -> String {
         let currentDateFormatter = DateFormatter()
