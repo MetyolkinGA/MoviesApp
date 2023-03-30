@@ -15,11 +15,10 @@ final class MovieListViewController: UIViewController {
 
     private var movieListViewModel: MovieListViewModel?
 
-    private let movieSortSegmentControllerItems = ["Top Rate", "Top Popular", "Up Coming"]
+    private let movieSortSegmentControllerItems = [L10n.topRated, L10n.popular, L10n.upcoming]
 
     private enum Constants {
         static let movieTableViewCell = "MovieTableViewCell"
-        static let titleNavigationBar = "Movie"
         static let alertControllerTitle = "Ошибка!"
         static let alertActionTitle = "OK"
     }
@@ -64,7 +63,7 @@ final class MovieListViewController: UIViewController {
     }
 
     private func setupNavigationBar() {
-        title = Constants.titleNavigationBar
+        title = L10n.movie
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = .black

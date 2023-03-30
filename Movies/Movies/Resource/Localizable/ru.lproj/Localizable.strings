@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  Movies
+
+  Created by Grigory Metelkin on 31.03.2023.
+  
+*/
+"movie" = "Фильмы";
+"requestLanguage" = "ru";
+"popular" = "Топ популярных";
+"topRated" = "Топ лучших";
+"upcoming" = "Скоро выйдет";

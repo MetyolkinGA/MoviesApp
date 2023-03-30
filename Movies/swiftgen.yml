@@ -1,0 +1,6 @@
+strings:
+  inputs: Movies/Resource/Localizable/en.lproj
+  filter: .+\.strings$
+  outputs:
+    - templateName: structured-swift5
+      output: Movies/Constants/LocalizedTemplate/LocalizedTemplate.swift
