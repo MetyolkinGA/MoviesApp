@@ -12,6 +12,7 @@ final class MovieListViewModelImpl: MovieListViewModel {
     // MARK: - Private Properties
 
     private var movieAPIService: MovieAPIService?
+    private var repository: DataBaseRepository<Any>?
     private var movies: [Movie]? = []
 
     private enum Constants {
@@ -28,7 +29,11 @@ final class MovieListViewModelImpl: MovieListViewModel {
 
     // MARK: - Intenal Methods
 
-    func configure(movieAPIService: MovieAPIService) {
+    func configure(
+        repository: DataBaseRepository<Any>,
+        movieAPIService: MovieAPIService
+    ) {
+        self.repository = repository
         self.movieAPIService = movieAPIService
         selectedValue(index: 0)
     }
@@ -57,9 +62,13 @@ final class MovieListViewModelImpl: MovieListViewModel {
             guard let self = self else { return }
             switch result {
                 case let .success(movies):
-                    self.movies = movies
-                    print(movies)
-                    self.updateDataTableView?()
+                    DispatchQueue.main.async {
+                        movies.forEach { $0.filter = path }
+                        self.movies = movies
+                        self.repository?.save(object: movies)
+                        print(self.repository?.getData(filterPredicate: path))
+                        self.updateDataTableView?()
+                    }
                 case let .failure(error):
                     self.presentErrorAlerController?(error.localizedDescription)
             }

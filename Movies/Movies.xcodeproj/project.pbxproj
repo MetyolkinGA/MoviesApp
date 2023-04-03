@@ -24,6 +24,14 @@
 		A363C4B329D38164004276E5 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A363C4B229D38164004276E5 /* UIViewController+Extension.swift */; };
 		A363C4B629D385B8004276E5 /* ApplicationAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A363C4B529D385B8004276E5 /* ApplicationAssembly.swift */; };
 		A363C4B829D385C5004276E5 /* ApplicationAssemblyImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A363C4B729D385C5004276E5 /* ApplicationAssemblyImpl.swift */; };
+		A382EEED29D6CECA00F6B210 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A382EEEB29D6CECA00F6B210 /* CoreDataModel.xcdatamodeld */; };
+		A382EEF029D7008400F6B210 /* DataBaseRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A382EEEF29D7008400F6B210 /* DataBaseRepositoryImpl.swift */; };
+		A382EEF329D700C600F6B210 /* RealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A382EEF229D700C600F6B210 /* RealmRepository.swift */; };
+		A382EEF529D700F000F6B210 /* RealmSwift.List+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A382EEF429D700F000F6B210 /* RealmSwift.List+Extension.swift */; };
+		A382EEF729D7013200F6B210 /* Results+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A382EEF629D7013200F6B210 /* Results+Extension.swift */; };
+		A382EEFA29D7019E00F6B210 /* CoreDataSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = A382EEF929D7019E00F6B210 /* CoreDataSetting.swift */; };
+		A382EEFC29D702A600F6B210 /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A382EEFB29D702A600F6B210 /* CoreDataRepository.swift */; };
+		A382EF0229D71FCE00F6B210 /* CoreDataSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = A382EF0129D71FCD00F6B210 /* CoreDataSave.swift */; };
 		A38BBF7429D61BCD00BA81F6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A38BBF7629D61BCD00BA81F6 /* Localizable.strings */; };
 		A38BBF7929D61CD700BA81F6 /* LocalizedTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38BBF7829D61CD700BA81F6 /* LocalizedTemplate.swift */; };
 		A38BBF7C29D6203600BA81F6 /* ImageCacheServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38BBF7B29D6203600BA81F6 /* ImageCacheServiceImpl.swift */; };
@@ -62,6 +70,14 @@
 		A363C4B229D38164004276E5 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		A363C4B529D385B8004276E5 /* ApplicationAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationAssembly.swift; sourceTree = "<group>"; };
 		A363C4B729D385C5004276E5 /* ApplicationAssemblyImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationAssemblyImpl.swift; sourceTree = "<group>"; };
+		A382EEEC29D6CECA00F6B210 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		A382EEEF29D7008400F6B210 /* DataBaseRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseRepositoryImpl.swift; sourceTree = "<group>"; };
+		A382EEF229D700C600F6B210 /* RealmRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRepository.swift; sourceTree = "<group>"; };
+		A382EEF429D700F000F6B210 /* RealmSwift.List+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RealmSwift.List+Extension.swift"; sourceTree = "<group>"; };
+		A382EEF629D7013200F6B210 /* Results+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Results+Extension.swift"; sourceTree = "<group>"; };
+		A382EEF929D7019E00F6B210 /* CoreDataSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataSetting.swift; sourceTree = "<group>"; };
+		A382EEFB29D702A600F6B210 /* CoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
+		A382EF0129D71FCD00F6B210 /* CoreDataSave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataSave.swift; sourceTree = "<group>"; };
 		A38BBF5029D5D40000BA81F6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		A38BBF5129D5D40000BA81F6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		A38BBF7529D61BCD00BA81F6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -172,6 +188,7 @@
 		A363C4A529D30CC8004276E5 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				A382EEE829D6C6E900F6B210 /* Repository */,
 				A38BBF7F29D6208C00BA81F6 /* ProxyService */,
 				A38BBF7A29D6200200BA81F6 /* ImageCacheService */,
 				A3E7A05529D431BC00A2B6F1 /* Coordinator */,
@@ -213,6 +230,8 @@
 			children = (
 				A363C4B229D38164004276E5 /* UIViewController+Extension.swift */,
 				A3E7A05829D4342F00A2B6F1 /* UIApplication+Extension.swift */,
+				A382EEF429D700F000F6B210 /* RealmSwift.List+Extension.swift */,
+				A382EEF629D7013200F6B210 /* Results+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -248,6 +267,42 @@
 				A3E7A05E29D44FC600A2B6F1 /* MovieCoordinator.swift */,
 			);
 			path = MovieCoordinator;
+			sourceTree = "<group>";
+		};
+		A382EEE829D6C6E900F6B210 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				A382EEEE29D7002700F6B210 /* DataBaseRepository */,
+				A382EEF129D700AD00F6B210 /* RealmRepository */,
+				A382EEF829D7017600F6B210 /* CoreDataRepository */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		A382EEEE29D7002700F6B210 /* DataBaseRepository */ = {
+			isa = PBXGroup;
+			children = (
+				A382EEEF29D7008400F6B210 /* DataBaseRepositoryImpl.swift */,
+			);
+			path = DataBaseRepository;
+			sourceTree = "<group>";
+		};
+		A382EEF129D700AD00F6B210 /* RealmRepository */ = {
+			isa = PBXGroup;
+			children = (
+				A382EEF229D700C600F6B210 /* RealmRepository.swift */,
+			);
+			path = RealmRepository;
+			sourceTree = "<group>";
+		};
+		A382EEF829D7017600F6B210 /* CoreDataRepository */ = {
+			isa = PBXGroup;
+			children = (
+				A382EEF929D7019E00F6B210 /* CoreDataSetting.swift */,
+				A382EEFB29D702A600F6B210 /* CoreDataRepository.swift */,
+				A382EF0129D71FCD00F6B210 /* CoreDataSave.swift */,
+			);
+			path = CoreDataRepository;
 			sourceTree = "<group>";
 		};
 		A38BBF6E29D61AB100BA81F6 /* LocalizedTemplate */ = {
@@ -359,6 +414,7 @@
 			isa = PBXGroup;
 			children = (
 				A345126D29D20ACA00608B67 /* MovieList.swift */,
+				A382EEEB29D6CECA00F6B210 /* CoreDataModel.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -579,10 +635,12 @@
 				A363C49329D2ED5C004276E5 /* DetailsMovieViewModel.swift in Sources */,
 				A3E7A05729D432CD00A2B6F1 /* BaseCoordinator.swift in Sources */,
 				A3E7A05F29D44FC600A2B6F1 /* MovieCoordinator.swift in Sources */,
+				A382EEFC29D702A600F6B210 /* CoreDataRepository.swift in Sources */,
 				A38BBF8129D620AA00BA81F6 /* ProxyServiceImpl.swift in Sources */,
 				A363C48F29D2ED14004276E5 /* DetailsMovieViewController.swift in Sources */,
 				A3E7A05B29D4381B00A2B6F1 /* ApplicatonCoordinator.swift in Sources */,
 				A38BBF7C29D6203600BA81F6 /* ImageCacheServiceImpl.swift in Sources */,
+				A382EEF529D700F000F6B210 /* RealmSwift.List+Extension.swift in Sources */,
 				A345127029D20B0600608B67 /* MovieListViewModel.swift in Sources */,
 				A363C49629D2EE1F004276E5 /* DescriptionTableViewCell.swift in Sources */,
 				A3E7A05929D4342F00A2B6F1 /* UIApplication+Extension.swift in Sources */,
@@ -590,6 +648,8 @@
 				A345127429D20DCC00608B67 /* MovieTableViewCell.swift in Sources */,
 				A363C4AA29D30DC3004276E5 /* MovieAPIService.swift in Sources */,
 				A363C4B629D385B8004276E5 /* ApplicationAssembly.swift in Sources */,
+				A382EEF329D700C600F6B210 /* RealmRepository.swift in Sources */,
+				A382EF0229D71FCE00F6B210 /* CoreDataSave.swift in Sources */,
 				A3CCD4DA29D2041F002A9AF2 /* AppDelegate.swift in Sources */,
 				A38BBF7E29D6207A00BA81F6 /* ImageCacheService.swift in Sources */,
 				A363C49129D2ED32004276E5 /* DetailsMovieViewModelImpl.swift in Sources */,
@@ -597,10 +657,14 @@
 				A345126E29D20ACA00608B67 /* MovieList.swift in Sources */,
 				A363C4B029D30DED004276E5 /* ImageAPIServiceImpl.swift in Sources */,
 				A363C4AC29D30DD3004276E5 /* MovieAPIServiceImpl.swift in Sources */,
+				A382EEED29D6CECA00F6B210 /* CoreDataModel.xcdatamodeld in Sources */,
 				A363C48729D2DA7C004276E5 /* Typealias.swift in Sources */,
+				A382EEFA29D7019E00F6B210 /* CoreDataSetting.swift in Sources */,
+				A382EEF729D7013200F6B210 /* Results+Extension.swift in Sources */,
 				A363C4AE29D30DE2004276E5 /* ImageAPIService.swift in Sources */,
 				A345126C29D20A9B00608B67 /* MovieListViewModelImpl.swift in Sources */,
 				A363C4B829D385C5004276E5 /* ApplicationAssemblyImpl.swift in Sources */,
+				A382EEF029D7008400F6B210 /* DataBaseRepositoryImpl.swift in Sources */,
 				A38BBF8329D620B500BA81F6 /* ProxyService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -834,6 +898,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A382EEEB29D6CECA00F6B210 /* CoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A382EEEC29D6CECA00F6B210 /* CoreDataModel.xcdatamodel */,
+			);
+			currentVersion = A382EEEC29D6CECA00F6B210 /* CoreDataModel.xcdatamodel */;
+			path = CoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A3CCD4CE29D2041F002A9AF2 /* Project object */;
 }
