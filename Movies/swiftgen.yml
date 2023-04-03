@@ -3,4 +3,4 @@ strings:
   filter: .+\.strings$
   outputs:
     - templateName: structured-swift5
-      output: Movies/Constants/LocalizedTemplate/LocalizedTemplate.swift
+      output: Movies/Resource/Generated/L10n.swift
