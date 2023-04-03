@@ -8,15 +8,7 @@ final class DescriptionTableViewCell: UITableViewCell {
 
     var movie: Movie? {
         didSet {
-            guard let movie = movie, let releaseDate = movie.releaseDate else { return }
-            nameMovieLabel.text = movie.title
-            movieRatingLabel.text =
-                movie.voteAverage == 0 ?
-                "" : String(convertDouble(inputDouble: movie.voteAverage)) + Constants.starEmoji
-            movieRatingLabel.textColor = movie.ratingMovieColor
-            descriptionMovieLabel.text = movie.overview
-            releaseDateMovieLabel.text =
-                releaseDate.isEmpty ? Constants.comingOutSoon : convertDateFormat(inputDate: releaseDate)
+            configureWithCell(movie: movie)
         }
     }
 
@@ -28,7 +20,6 @@ final class DescriptionTableViewCell: UITableViewCell {
     private let descriptionMovieLabel = UILabel()
 
     private enum Constants {
-        static let comingOutSoon = "Скоро выйдет"
         static let starEmoji = " ⭐️"
         static let currentDateFormat = "yyyy-MM-dd"
         static let convertDateFormat = "dd.MM.yyyy"
@@ -45,6 +36,18 @@ final class DescriptionTableViewCell: UITableViewCell {
     }
 
     // MARK: - Private Methods
+
+    private func configureWithCell(movie: Movie?) {
+        guard let movie = movie, let releaseDate = movie.releaseDate else { return }
+        nameMovieLabel.text = movie.title
+        movieRatingLabel.text =
+            movie.voteAverage == 0 ?
+            "" : String(convertDouble(inputDouble: movie.voteAverage)) + Constants.starEmoji
+        movieRatingLabel.textColor = movie.ratingMovieColor
+        descriptionMovieLabel.text = movie.overview
+        releaseDateMovieLabel.text =
+            releaseDate.isEmpty ? L10n.upcoming : convertDateFormat(inputDate: releaseDate)
+    }
 
     private func convertDouble(inputDouble: Double) -> Double {
         let newDouble = Double(round(10 * inputDouble) / 10)
@@ -107,11 +110,5 @@ final class DescriptionTableViewCell: UITableViewCell {
             descriptionMovieLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
             descriptionMovieLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
         ])
-    }
-}
-
-extension Double {
-    var clean: String {
-        truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", self) : String(self)
     }
 }

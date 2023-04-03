@@ -3,7 +3,8 @@
 
 protocol DetailsMovieViewModel: AnyObject {
     var updateDataTableView: VoidHandler? { get set }
-    var presentErrorAlerController: StringHandler? { get set }
+    var showError: StringHandler? { get set }
+
     func configure(movieID: String, movieAPIService: MovieAPIService)
     func getMovie() -> Movie?
 }

@@ -5,7 +5,8 @@ import UIKit
 
 protocol MovieListViewModel: AnyObject {
     var updateDataTableView: VoidHandler? { get set }
-    var presentErrorAlerController: StringHandler? { get set }
+    var showError: StringHandler? { get set }
+
     func selectedValue(index: Int)
     func getMovies() -> [Movie]
 }

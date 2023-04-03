@@ -8,25 +8,7 @@ final class MovieTableViewCell: UITableViewCell {
 
     var movie: Movie? {
         didSet {
-            guard let movie = movie else { return }
-            proxyService?.getImage(url: movie.posterURL) { [weak self] result in
-                guard let self = self else { return }
-                DispatchQueue.main.async {
-                    switch result {
-                        case let .success(image):
-                            self.movieImageView.image = image
-                        case .failure:
-                            self.movieImageView.image = UIImage(systemName: Constants.photoIcon)
-                    }
-                }
-            }
-            movieNameLabel.text = movie.title
-            movieRatingLabel.text = movie.voteAverage == 0 ? "" : String(movie.voteAverage) + Constants.starEmoji
-            movieRatingLabel.textColor = movie.ratingMovieColor
-            releaseDateMovieLabel.text =
-                movie.releaseDate == nil ? Constants.comingOutSoon : convertDateFormat(
-                    inputDate: movie.releaseDate ?? String()
-                )
+            configureCellWithModel(movie: movie)
         }
     }
 
@@ -42,7 +24,6 @@ final class MovieTableViewCell: UITableViewCell {
     private var proxyService: ProxyService?
 
     private enum Constants {
-        static let comingOutSoon = "Скоро выйдет"
         static let starEmoji = " ⭐️"
         static let chevronRightIcon = "chevron.right"
         static let photoIcon = "photo"
@@ -67,6 +48,26 @@ final class MovieTableViewCell: UITableViewCell {
     }
 
     // MARK: - Private Methods
+
+    private func configureCellWithModel(movie: Movie?) {
+        guard let movie = movie else { return }
+        proxyService?.getImage(url: movie.posterURL) { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                    case let .success(image):
+                        self.movieImageView.image = image
+                    case .failure:
+                        self.movieImageView.image = UIImage(systemName: Constants.photoIcon)
+                }
+            }
+        }
+        movieNameLabel.text = movie.title
+        movieRatingLabel.text = movie.voteAverage == 0 ? "" : String(movie.voteAverage) + Constants.starEmoji
+        movieRatingLabel.textColor = movie.ratingMovieColor
+        releaseDateMovieLabel.text =
+            movie.releaseDate == nil ? L10n.upcoming : convertDateFormat(inputDate: movie.releaseDate ?? String())
+    }
 
     private func convertDateFormat(inputDate: String) -> String {
         let currentDateFormatter = DateFormatter()

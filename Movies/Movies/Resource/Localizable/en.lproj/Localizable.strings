@@ -10,3 +10,6 @@
 "popular" = "Top popular";
 "topRated" = "Top rated";
 "upcoming" = "Upcoming";
+"ok" = "OK";
+"error" = "Error!";
+"errorNoData" = "No data";

@@ -13,8 +13,7 @@ final class DetailsMovieViewController: UIViewController {
     private enum Constants {
         static let posterTableViewCell = "PosterTableViewCell"
         static let descriptionTableViewCell = "DescriptionTableViewCell"
-        static let alertControllerTitle = "Ошибка!"
-        static let alertActionTitle = "OK"
+        static let numberOfRowsInSection = 2
     }
 
     private enum IndexTableViewCell: Int {
@@ -52,12 +51,12 @@ final class DetailsMovieViewController: UIViewController {
     }
 
     private func presentErrorAlerController() {
-        detailsMovieViewModel?.presentErrorAlerController = { [weak self] error in
+        detailsMovieViewModel?.showError = { [weak self] error in
             DispatchQueue.main.async {
                 self?.showAlert(
-                    title: Constants.alertControllerTitle,
+                    title: L10n.error,
                     message: error,
-                    titleAction: Constants.alertActionTitle
+                    titleAction: L10n.ok
                 )
             }
         }
@@ -94,7 +93,7 @@ final class DetailsMovieViewController: UIViewController {
 
 extension DetailsMovieViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        2
+        Constants.numberOfRowsInSection
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

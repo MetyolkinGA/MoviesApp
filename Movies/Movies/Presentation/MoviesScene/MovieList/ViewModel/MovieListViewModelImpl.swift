@@ -7,7 +7,7 @@ final class MovieListViewModelImpl: MovieListViewModel {
     // MARK: - Internal Properties
 
     var updateDataTableView: VoidHandler?
-    var presentErrorAlerController: StringHandler?
+    var showError: StringHandler?
 
     // MARK: - Private Properties
 
@@ -61,7 +61,7 @@ final class MovieListViewModelImpl: MovieListViewModel {
                     print(movies)
                     self.updateDataTableView?()
                 case let .failure(error):
-                    self.presentErrorAlerController?(error.localizedDescription)
+                    self.showError?(error.localizedDescription)
             }
         }
     }

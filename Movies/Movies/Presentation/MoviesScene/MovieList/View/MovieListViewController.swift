@@ -14,13 +14,10 @@ final class MovieListViewController: UIViewController {
     private var movieSortSegmentController = UISegmentedControl()
 
     private var movieListViewModel: MovieListViewModel?
-
     private let movieSortSegmentControllerItems = [L10n.topRated, L10n.popular, L10n.upcoming]
 
     private enum Constants {
         static let movieTableViewCell = "MovieTableViewCell"
-        static let alertControllerTitle = "Ошибка!"
-        static let alertActionTitle = "OK"
     }
 
     // MARK: - Life Cycle
@@ -51,12 +48,12 @@ final class MovieListViewController: UIViewController {
     }
 
     private func presentErrorAlerController() {
-        movieListViewModel?.presentErrorAlerController = { [weak self] error in
+        movieListViewModel?.showError = { [weak self] error in
             DispatchQueue.main.async {
                 self?.showAlert(
-                    title: Constants.alertControllerTitle,
+                    title: L10n.error,
                     message: error,
-                    titleAction: Constants.alertActionTitle
+                    titleAction: L10n.ok
                 )
             }
         }
@@ -102,15 +99,6 @@ final class MovieListViewController: UIViewController {
     }
 }
 
-// MARK: - UITableViewDelegate
-
-extension MovieListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let movie = movieListViewModel?.getMovies()[indexPath.row] else { return }
-        openDetailedMovieModule?(String(movie.id))
-    }
-}
-
 // MARK: - UITableViewDataSource
 
 extension MovieListViewController: UITableViewDataSource {
@@ -132,5 +120,14 @@ extension MovieListViewController: UITableViewDataSource {
         cellMovie.configure(proxyService: proxyService)
         cellMovie.movie = movie
         return cellMovie
+    }
+}
+
+// MARK: - UITableViewDelegate
+
+extension MovieListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let movie = movieListViewModel?.getMovies()[indexPath.row] else { return }
+        openDetailedMovieModule?(String(movie.id))
     }
 }

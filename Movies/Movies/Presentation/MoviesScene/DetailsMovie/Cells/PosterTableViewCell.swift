@@ -8,18 +8,7 @@ final class PosterTableViewCell: UITableViewCell {
 
     var movie: Movie? {
         didSet {
-            guard let movie = movie else { return }
-            proxyService?.getImage(url: movie.posterURL) { [weak self] result in
-                guard let self = self else { return }
-                DispatchQueue.main.async {
-                    switch result {
-                        case let .success(image):
-                            self.posterMovieImageView.image = image
-                        case .failure:
-                            self.posterMovieImageView.image = UIImage(systemName: Constants.photoIcon)
-                    }
-                }
-            }
+            setPosterImage(movie: movie)
         }
     }
 
@@ -42,6 +31,21 @@ final class PosterTableViewCell: UITableViewCell {
     }
 
     // MARK: - Private Methods
+
+    private func setPosterImage(movie: Movie?) {
+        guard let movie = movie else { return }
+        proxyService?.getImage(url: movie.posterURL) { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                    case let .success(image):
+                        self.posterMovieImageView.image = image
+                    case .failure:
+                        self.posterMovieImageView.image = UIImage(systemName: Constants.photoIcon)
+                }
+            }
+        }
+    }
 
     private func setupPosterMovieImageView() {
         posterMovieImageView.translatesAutoresizingMaskIntoConstraints = false

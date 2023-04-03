@@ -23,7 +23,10 @@ final class MovieAPIServiceImpl: MovieAPIService {
             if let error = error {
                 completion(.failure(error))
             }
-            guard let data = data else { return }
+            guard let data = data else {
+                completion(.failure(self.getNoDataError()))
+                return
+            }
             do {
                 let movies = try JSONDecoder().decode(MovieList.self, from: data)
                 completion(.success(movies.results))
@@ -39,7 +42,10 @@ final class MovieAPIServiceImpl: MovieAPIService {
             if let error = error {
                 completion(.failure(error))
             }
-            guard let data = data else { return }
+            guard let data = data else {
+                completion(.failure(self.getNoDataError()))
+                return
+            }
             do {
                 let movie = try JSONDecoder().decode(Movie.self, from: data)
                 completion(.success(movie))
@@ -50,6 +56,11 @@ final class MovieAPIServiceImpl: MovieAPIService {
     }
 
     // MARK: - Private Methods
+
+    private func getNoDataError() -> Error {
+        let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: L10n.errorNoData])
+        return error
+    }
 
     private func createURL(path: String) -> URL? {
         var components = URLComponents()
