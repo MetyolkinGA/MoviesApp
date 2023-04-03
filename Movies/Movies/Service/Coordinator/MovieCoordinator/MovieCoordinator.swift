@@ -23,8 +23,8 @@ final class MovieCoordinator: BaseCoordinator {
     // MARK: - Internal Methods
 
     func openMovieDetailedModule(movieID: String) {
-        let detailedMovieViewController = applicationAssembly.createDetailedMovieViewController(movieID: movieID)
-        navigationController.pushViewController(detailedMovieViewController, animated: true)
+        let detailsMovieViewController = applicationAssembly.createDetailsMovieViewController(movieID: movieID)
+        navigationController.pushViewController(detailsMovieViewController, animated: true)
     }
 
     func openMovieListModule() {

@@ -4,5 +4,5 @@
 import UIKit
 
 protocol ImageAPIService {
-    func getImage(posterURL: String, completion: @escaping (Result<UIImage, Error>) -> ())
+    func loadImageData(urlPhoto: String, completion: @escaping (Result<Data, Error>) -> ())
 }
