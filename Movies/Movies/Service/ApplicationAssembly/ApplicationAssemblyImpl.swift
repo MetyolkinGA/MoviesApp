@@ -9,7 +9,10 @@ final class ApplicationAssemblyImpl: ApplicationAssembly {
     func createMovieListViewConrtoller() -> UIViewController {
         let movieListViewController = MovieListViewController()
         let movieListViewModel = MovieListViewModelImpl()
-        movieListViewModel.configure(movieAPIService: MovieAPIServiceImpl())
+        movieListViewModel.configure(
+            repository: CoreDataRepository<Movie>(),
+            movieAPIService: MovieAPIServiceImpl()
+        )
         movieListViewController.configure(movieListViewModel: movieListViewModel)
         return movieListViewController
     }
